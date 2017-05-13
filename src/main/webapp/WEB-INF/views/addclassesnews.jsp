@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="GBK"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>°à¼¶¶¯Ì¬</title>
+		<title>ç­çº§åŠ¨æ€</title>
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<%@include file="/WEB-INF/views/common/css.jsp" %>
@@ -23,7 +24,7 @@
 						<h1>
 							<small>
 								<i class="icon-comment"></i>
-								·¢²¼¶¯Ì¬
+								å‘å¸ƒåŠ¨æ€
 							</small>
 						</h1>
 					</div> 
@@ -32,17 +33,17 @@
 						<div class="span12">
 							<!--PAGE CONTENT BEGINS-->
 							<form action="addclassesnews" id="addclassesnews" method="post">
-									<label for="form-field-8">Îª <b>${cls.name}</b> ·¢²¼°à¼¶¶¯Ì¬£¨°àÖ÷ÈÎ:<b>${cls.headteacher}</b>£© </label>
+									<label for="form-field-8">ä¸º <b>${cls.name}</b> å‘å¸ƒç­çº§åŠ¨æ€ï¼ˆç­ä¸»ä»»:<b>${cls.headteacher}</b>ï¼‰ </label>
 									<input type="hidden" name="classid" value="${cls.id}">
-									<textarea class="span12" name="content" id="content" rows="4" placeholder="¶¯Ì¬ÄÚÈİ"></textarea>
+									<textarea class="span12" name="content" id="content" rows="4" placeholder="åŠ¨æ€å†…å®¹"></textarea>
 									<br>
 									<button class="btn btn-info" id="leavemessage" type="button">
 										<i class="icon-inbox"></i>
-										·¢²¼
+										å‘å¸ƒ
 									</button>
 									<button class="btn btn-info" type="button" onclick="location.href='<%=request.getContextPath() %>/manager/classes'" >
 										<i class="icon-arrow-left"></i>
-										·µ»Ø
+										è¿”å›
 									</button>
 									<br><br>
 									<c:if test="${param.notice != null}">
@@ -59,19 +60,19 @@
 							<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-										<th width="6%">±àºÅ</th>
-										<th width="20%">ÁôÑÔÊ±¼ä</th>
-										<th>ÄÚÈİ</th>
-										<th width="10%">²Ù×÷</th>
+										<th width="6%">ç¼–å·</th>
+										<th width="20%">ç•™è¨€æ—¶é—´</th>
+										<th>å†…å®¹</th>
+										<th width="10%">æ“ä½œ</th>
 									</tr>
 								</thead>
 								<tbody>
 								<c:forEach items="${cnlist}"  var="cn" varStatus="sta" >
 									<tr>
 										<td>${sta.index+1}</td>
-										<td>${cn.inserttime}</td>
+										<td><fmt:formatDate value="${cn.inserttime}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
 										<td>${cn.content}</td>
-										<td><button class="btn btn-mini btn-danger" onclick="if(window.confirm('È·ÈÏÉ¾³ıÕâÌõ¶¯Ì¬£¿')==true)location.href='<%=request.getContextPath() %>/manager/deleteclassesnews?classesid=${cn.classid}&id=${cn.id}'"><i class="icon-remove"></i>É¾³ı¶¯Ì¬</button></td>
+										<td><button class="btn btn-mini btn-danger" onclick="if(window.confirm('ç¡®è®¤åˆ é™¤è¿™æ¡åŠ¨æ€ï¼Ÿ')==true)location.href='<%=request.getContextPath() %>/manager/deleteclassesnews?classesid=${cn.classid}&id=${cn.id}'"><i class="icon-remove"></i>åˆ é™¤åŠ¨æ€</button></td>
 									</tr>
 								</c:forEach>
 								</tbody>
@@ -89,7 +90,7 @@
 		$(function() {
 			$('#leavemessage').on('click', function() {
 				if($.trim($("#content").val())==''){
-					alert('ÇëÊäÈëÁôÑÔÄÚÈİ');
+					alert('è¯·è¾“å…¥ç•™è¨€å†…å®¹');
 					return;
 				}else{
 					$("#addclassesnews").submit();

@@ -11,8 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller()
 public class LoginController {
 	
-	private static final String USERNAME = "zhiyun";
-	private static final String PASSWORD = "123456";
+	private static final String USERNAME = "admin";
+	private static final String PASSWORD = "admin";
 	
 	@RequestMapping("/")
 	public String index(){

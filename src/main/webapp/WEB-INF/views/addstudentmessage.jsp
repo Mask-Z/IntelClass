@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="GBK"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Î¢ĞÅÁôÑÔ</title>
+		<title>å¾®ä¿¡ç•™è¨€</title>
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<%@include file="/WEB-INF/views/common/css.jsp" %>
@@ -23,7 +24,7 @@
 						<h1>
 							<small>
 								<i class="icon-comment"></i>
-								Î¢ĞÅÁôÑÔ
+								å¾®ä¿¡ç•™è¨€
 							</small>
 						</h1>
 					</div> 
@@ -32,17 +33,17 @@
 						<div class="span12">
 							<!--PAGE CONTENT BEGINS-->
 							<form action="addmessage" id="addmessage" method="post">
-									<label for="form-field-8">¸ø <b>${student.name}</b> Í¬Ñ§£¨±àºÅ:<b>${student.id}</b>£©Î¢ĞÅÁôÑÔ  </label>
+									<label for="form-field-8">ç»™ <b>${student.name}</b> åŒå­¦ï¼ˆç¼–å·:<b>${student.id}</b>ï¼‰å¾®ä¿¡ç•™è¨€  </label>
 									<input type="hidden" name="studentid" value="${student.id}">
-									<textarea class="span12" name="content" id="content" rows="4" placeholder="ÁôÑÔÄÚÈİ"></textarea>
+									<textarea class="span12" name="content" id="content" rows="4" placeholder="ç•™è¨€å†…å®¹"></textarea>
 									<br>
 									<button class="btn btn-info" id="leavemessage" type="button">
 										<i class="icon-inbox"></i>
-										ÁôÑÔ
+										ç•™è¨€
 									</button>
 									<button class="btn btn-info" type="button" onclick="location.href='<%=request.getContextPath() %>/manager/students'" >
 										<i class="icon-arrow-left"></i>
-										·µ»Ø
+										è¿”å›
 									</button>
 									<br><br>
 									<c:if test="${param.notice != null}">
@@ -59,19 +60,19 @@
 							<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-										<th width="6%">±àºÅ</th>
-										<th width="20%">ÁôÑÔÊ±¼ä</th>
-										<th>ÄÚÈİ</th>
-										<th width="10%">²Ù×÷</th>
+										<th width="6%">ç¼–å·</th>
+										<th width="20%">ç•™è¨€æ—¶é—´</th>
+										<th>å†…å®¹</th>
+										<th width="10%">æ“ä½œ</th>
 									</tr>
 								</thead>
 								<tbody>
 								<c:forEach items="${studentMessageList}"  var="message" varStatus="sta" >
 									<tr>
 										<td>${sta.index+1}</td>
-										<td>${message.inserttime}</td>
+										<td><fmt:formatDate value="${message.inserttime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 										<td>${message.content}</td>
-										<td><button class="btn btn-mini btn-danger" onclick="if(window.confirm('È·ÈÏÉ¾³ıÕâÌõÁôÑÔ£¿')==true)location.href='<%=request.getContextPath() %>/manager/deletemessage?studentid=${student.id}&messageid=${message.id}'"><i class="icon-remove"></i>É¾³ıÁôÑÔ</button></td>
+										<td><button class="btn btn-mini btn-danger" onclick="if(window.confirm('ç¡®è®¤åˆ é™¤è¿™æ¡ç•™è¨€ï¼Ÿ')==true)location.href='<%=request.getContextPath() %>/manager/deletemessage?studentid=${student.id}&messageid=${message.id}'"><i class="icon-remove"></i>åˆ é™¤ç•™è¨€</button></td>
 									</tr>
 								</c:forEach>
 								</tbody>
@@ -89,7 +90,7 @@
 		$(function() {
 			$('#leavemessage').on('click', function() {
 				if($.trim($("#content").val())==''){
-					alert('ÇëÊäÈëÁôÑÔÄÚÈİ');
+					alert('è¯·è¾“å…¥ç•™è¨€å†…å®¹');
 					return;
 				}else{
 					$("#addmessage").submit();

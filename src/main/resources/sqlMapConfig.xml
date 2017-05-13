@@ -33,6 +33,8 @@
    		 <typeAlias alias="ExamMark"  type="com.aixuexiao.model.ExamMark" />
    		 <typeAlias alias="StudentMessage"  type="com.aixuexiao.model.StudentMessage" />
    		 <typeAlias alias="ClassesNews"  type="com.aixuexiao.model.ClassesNews" />
+   		 <typeAlias alias="SigninNum"  type="com.aixuexiao.model.SigninNum" />
+   		 <typeAlias alias="SigninDetail"  type="com.aixuexiao.model.SigninDetail" />
 	</typeAliases>
     <mappers>
     	<mapper resource="com/aixuexiao/dao/sqlmap/ReplyMapper.xml"/>
@@ -42,5 +44,7 @@
     	<mapper resource="com/aixuexiao/dao/sqlmap/StudentMessageMapper.xml"/>
     	<mapper resource="com/aixuexiao/dao/sqlmap/ClassesNewsMapper.xml"/>
     	<mapper resource="com/aixuexiao/dao/sqlmap/ClassesMapper.xml"/>
+    	<mapper resource="com/aixuexiao/dao/sqlmap/SigninNumMapper.xml"/>
+    	<mapper resource="com/aixuexiao/dao/sqlmap/SigninDetailMapper.xml"/>
     </mappers>
 </configuration>

@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="GBK"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Î¢ĞÅ½ÓÊÕĞÅÏ¢</title>
+		<title>å¾®ä¿¡æ¥æ”¶ä¿¡æ¯</title>
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<%@include file="/WEB-INF/views/common/css.jsp" %>
@@ -23,7 +24,7 @@
 						<h1>
 							<small>
 								<i class="icon-comment"></i>
-								Î¢ĞÅ»Ø¸´ĞÅÏ¢
+								å¾®ä¿¡å›å¤ä¿¡æ¯
 							</small>
 						</h1>
 					</div> 
@@ -47,7 +48,8 @@
 								  		<td>${st.index+1}</td>
 								  		<td>${reply.msgType}</td>
 								  		<td>${reply.fromUserName}</td>
-								  		<td>${reply.createTime}</td>
+										<td><fmt:formatDate value="${reply.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
+								  		<%--<td>${reply.createTime}</td>--%>
 								  		<td>${reply.content}</td>
 								  		</tr>
 								  	</c:forEach>
@@ -56,7 +58,7 @@
 							
 					 		<div class="dataTables_paginate paging_bootstrap pagination">
 							  <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/replys?pagenum=${pagenum-1}'" <c:if test="${pagenum <= 1}">disabled="disabled"</c:if>    >&laquo;</button>
-							  <button class="btn btn-success btn-mini" disabled="disabled">µÚ ${pagenum} Ò³</button>
+							  <button class="btn btn-success btn-mini" disabled="disabled">ç¬¬ ${pagenum} é¡µ</button>
 							  <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/replys?pagenum=${pagenum+1}'" <c:if test="${length < 10}">disabled="disabled"</c:if> >&raquo;</button>
 					 		</div>
 							 

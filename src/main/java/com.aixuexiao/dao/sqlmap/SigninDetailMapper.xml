@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aixuexiao.dao.SigninDetailDao">
+
+    <insert id="saveSigninDetail" parameterType="com.aixuexiao.model.SigninDetail">
+        insert into signin_detail (id,studentid,classid,signid,flag,signtime )
+        values(#{id},#{studentid},#{classid},#{signid},#{flag},#{signtime})
+    </insert>
+
+
+
+    <resultMap type="SigninDetail" id="SigninDetailMap">
+        <id property="id" column="id" />
+        <result property="studentid" column="studentid"/>
+        <result property="classid" column="classid"/>
+        <result property="signid" column="signid"/>
+        <result property="flag" column="flag"/>
+        <result property="signtime" column="signtime"/>
+
+    </resultMap>
+
+</mapper>
