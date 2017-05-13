@@ -16,5 +16,7 @@ public class SigninNumDao extends BaseDao {
 	public SigninNum findLatestSigninNum(){
 		return this.writerSqlSession.selectOne("com.aixuexiao.dao.SigninNumDao.findLatestSigninNum");
 	}
-
+	public SigninNum findSigninNumById(int id) {
+		return this.readSqlSession.selectOne("com.aixuexiao.dao.SigninNumDao.selectSigninNumById",id);
+	}
 }

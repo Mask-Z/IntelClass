@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="GBK"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Ñ§ÉúĞÅÏ¢</title>
+		<title>å­¦ç”Ÿä¿¡æ¯</title>
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<%@include file="/WEB-INF/views/common/css.jsp" %>
@@ -23,7 +23,7 @@
 						<h1>
 							<small>
 								<i class="icon-user"></i>
-								Ñ§ÉúĞÅÏ¢
+								å­¦ç”Ÿä¿¡æ¯
 							</small>
 						</h1>
 					</div> 
@@ -32,26 +32,26 @@
 							<!--PAGE CONTENT BEGINS-->
 							<form class="form-inline" method="get" action="<%=request.getContextPath() %>/manager/students">
 								<input type="hidden" name="pagenum" value="${pagenum}">
-								&nbsp;&nbsp;ĞÕÃû£º<input type="text" name="name" value="${student.name}"  class="input-medium search-query">&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;å§“åï¼š<input type="text" name="name" value="${student.name}"  class="input-medium search-query">&nbsp;&nbsp;&nbsp;&nbsp;
 								<select name="classid">
-									<option value="0">Ñ¡Ôñ°à¼¶</option>
+									<option value="0">é€‰æ‹©ç­çº§</option>
 									<c:forEach items="${clsList}"  var="cls"  >
 										<option <c:if test="${student.classid == cls.id}">selected="selected"</c:if> value="${cls.id}">${cls.name}</option>
 									</c:forEach>
 								</select>&nbsp;&nbsp;
 								<button  type="submit" class="btn btn-purple btn-small">
-									²éÕÒ
+									æŸ¥æ‰¾
 									<i class="icon-search icon-on-right bigger-110"></i>
 								</button>
 							</form>
 							<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-										<th width="15%">Ñ§Éú±àºÅ</th>
-										<th width="15%">Ñ§ÉúĞÕÃû</th>
-										<th width="15%">ËùÊô°à¼¶</th>
-										<th>±¸×¢</th>
-										<th width="20%" >²Ù×÷</th>
+										<th width="15%">å­¦ç”Ÿç¼–å·</th>
+										<th width="15%">å­¦ç”Ÿå§“å</th>
+										<th width="15%">æ‰€å±ç­çº§</th>
+										<th>å¤‡æ³¨</th>
+										<th width="20%" >æ“ä½œ</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -62,8 +62,8 @@
 										<td>${student.classid}</td>
 										<td>${student.remark}</td>
 										<td >
-											<button class="btn btn-mini btn-primary" onclick="location.href='<%=request.getContextPath() %>/manager/leavemessage?studentid=${student.id}'" ><i class="icon-comment"></i>Î¢ĞÅÁôÑÔ</button>
-											<button class="btn btn-mini btn-primary" onclick="location.href='<%=request.getContextPath() %>/manager/examdetail?studentid=${student.id}'"><i class="icon-file"></i>¿¼ÊÔÇé¿ö</button>
+											<button class="btn btn-mini btn-primary" onclick="location.href='<%=request.getContextPath() %>/manager/leavemessage?studentid=${student.id}'" ><i class="icon-comment"></i>å¾®ä¿¡ç•™è¨€</button>
+											<button class="btn btn-mini btn-primary" onclick="location.href='<%=request.getContextPath() %>/manager/examdetail?studentid=${student.id}'"><i class="icon-file"></i>è€ƒè¯•æƒ…å†µ</button>
 										</td>
 									</tr>
 								</c:forEach>
@@ -72,7 +72,7 @@
 							
 					 		<div class="dataTables_paginate paging_bootstrap pagination">
 							  <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/students?pagenum=${pagenum-1}'" <c:if test="${pagenum <= 1}">disabled="disabled"</c:if>    >&laquo;</button>
-							  <button class="btn btn-success btn-mini" disabled="disabled">µÚ ${pagenum} Ò³</button>
+							  <button class="btn btn-success btn-mini" disabled="disabled">ç¬¬ ${pagenum} é¡µ</button>
 							  <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/students?pagenum=${pagenum+1}'" <c:if test="${length < 8}">disabled="disabled"</c:if> >&raquo;</button>
 					 		</div>
 							 

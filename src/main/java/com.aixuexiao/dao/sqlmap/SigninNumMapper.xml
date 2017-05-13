@@ -15,6 +15,11 @@
         desc limit 0,1
     </select>
 
+    <select id="selectSigninNumById" parameterType="int"   resultMap="SigninNumMap"  >
+        select id,signnum,signtime
+        from signin_num
+        where id = #{id}
+    </select>
 
     <resultMap type="SigninNum" id="SigninNumMap">
         <id property="id" column="id" />

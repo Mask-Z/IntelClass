@@ -2,6 +2,7 @@ package com.aixuexiao.service;
 
 import com.aixuexiao.dao.SigninNumDao;
 import com.aixuexiao.model.SigninNum;
+import com.aixuexiao.model.Student;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,4 +27,11 @@ public class SigninNumService {
 		return  signinNumDao.findLatestSigninNum();
 	}
 
+	public SigninNum findSigninNumById(int signinnumid){
+		return signinNumDao.findSigninNumById(signinnumid);
+	}
+
+//	public SigninNum findSigninNumById(int signinnumid){
+//		return signinNumDao.findSigninNumById(signinnumid);
+//	}
 }

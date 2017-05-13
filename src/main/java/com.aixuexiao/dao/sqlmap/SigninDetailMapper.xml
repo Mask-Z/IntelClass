@@ -8,7 +8,16 @@
         values(#{id},#{studentid},#{classid},#{signid},#{flag},#{signtime})
     </insert>
 
-
+    <select id="selectSigninDetail"  parameterType="java.util.HashMap"   resultMap="SigninDetailMap"  >
+        select id,studentid,classid,signid,flag,signtime
+        from signin_detail
+        <where>
+            <if test="key != null and key != ''">signid IN (SELECT id FROM signin_num WHERE signnum like CONCAT('%','${key}','%' ))</if>
+            <!--<if test="student.name != null and student.name != ''">and name like CONCAT('%','${student.name}','%' )</if>-->
+        </where>
+        order by id
+        limit #{start},#{size}
+    </select>
 
     <resultMap type="SigninDetail" id="SigninDetailMap">
         <id property="id" column="id" />
