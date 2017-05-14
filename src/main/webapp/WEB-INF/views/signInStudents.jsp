@@ -50,6 +50,7 @@
                     <table id="sample-table-1" class="table table-striped table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th width="15%">学生编号</th>
                             <th width="15%">学生姓名</th>
                             <th width="15%">所属班级</th>
                             <th width="15%">签到码</th>
@@ -60,6 +61,7 @@
                         <tbody>
                         <c:forEach items="${infoList}"  var="info"  >
                             <tr>
+                                <td>${info["studentid"]}</td>
                                 <td>${info["studentname"]}</td>
                                 <td>${info["classname"]}</td>
                                 <td>${info["signnum"]}</td>
@@ -69,21 +71,14 @@
                                     <c:if test="${info['signindetail'].flag !=1 }">否</c:if>
                                 </td>
                             </tr>
-                            <%--<p align="center" >${info["studentname"]}</p>--%>
-                            <%--<p align="center" >${info[signindetail].id}aa</p>--%>
-                            <%--<p align="center" >${info["signindetail"].studentid}bb</p>--%>
-                            <%--<p align="center" >${info['signindetail'].classid}cc</p>--%>
-                            <%--<p align="center" >${info['signindetail'].signtime}dd</p>--%>
-                            <%--<p align="center" >${info['signindetail'].signid}</p>--%>
-                            <%--<p align="center" >${info['signindetail'].flag}</p>--%>
                         </c:forEach>
                         </tbody>
                     </table>
 
                     <div class="dataTables_paginate paging_bootstrap pagination">
-                        <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/students?pagenum=${pagenum-1}'" <c:if test="${pagenum <= 1}">disabled="disabled"</c:if>    >&laquo;</button>
+                        <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/signInStudents?pagenum=${pagenum-1}'" <c:if test="${pagenum <= 1}">disabled="disabled"</c:if>    >&laquo;</button>
                         <button class="btn btn-success btn-mini" disabled="disabled">第 ${pagenum} 页</button>
-                        <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/students?pagenum=${pagenum+1}'" <c:if test="${length < 8}">disabled="disabled"</c:if> >&raquo;</button>
+                        <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/signInStudents?pagenum=${pagenum+1}'" <c:if test="${length < 8}">disabled="disabled"</c:if> >&raquo;</button>
                     </div>
 
                     <!--PAGE CONTENT ENDS-->

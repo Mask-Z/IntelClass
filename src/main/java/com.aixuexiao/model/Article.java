@@ -5,7 +5,6 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 /**
  * 图文消息
- * @author lizy
  */
 public class Article {
 	

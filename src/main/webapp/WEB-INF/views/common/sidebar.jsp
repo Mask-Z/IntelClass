@@ -23,12 +23,12 @@
 		<li <c:if test="${sidebar=='signIn'}">class="active"</c:if> >
 			<a href="<%=request.getContextPath()%>/manager/signIn">
 				<i class="icon-tag"></i>
-				<span class="menu-text"> 签到列表 </span>
+				<span class="menu-text"> 生成签到 </span>
 			</a>
 		</li>
 		<li <c:if test="${sidebar=='signInStudents'}">class="active"</c:if> >
 			<a href="<%=request.getContextPath()%>/manager/signInStudents">
-				<i class="icon-user"></i>
+				<i class="icon-tags"></i>
 				<span class="menu-text"> 签到学生 </span>
 			</a>
 		</li>

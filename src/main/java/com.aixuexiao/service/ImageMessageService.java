@@ -26,10 +26,6 @@ public class ImageMessageService {
      */
     public  String  createPic(Student student, Message message)  {
 
-        // 发送方帐号（open_id）
-//        String fromUserName = requestMap.get("FromUserName");
-        // 公众帐号
-//        String toUserName = requestMap.get("ToUserName");
         NewsMessage nmessage=new NewsMessage();
 		nmessage.setToUserName(message.getFromUserName());
 		nmessage.setFromUserName(message.getToUserName());
@@ -40,7 +36,7 @@ public class ImageMessageService {
         MyArticle article=new MyArticle();
         article.setTitle("考试成绩");
         article.setDescription(student.getClassid()+"班级成绩");
-        article.setPicUrl("http://localhost:8080/aixuexiao/assets/img/bg1.jpg");
+        article.setPicUrl("http://localhost:8080/aixuexiao/assets/img/bg"+student.getClassid()+".jpg");
 //        article.setPicUrl("http://5afbaf5d.ngrok.io/aixuexiao/assets/img/bg1.jpg");
         article.setUrl("http://localhost:8080/aixuexiao/changda/echats/?classid=" + student.getClassid());
 //        article.setUrl("http://5afbaf5d.ngrok.io/aixuexiao/changda/echats");
@@ -50,7 +46,31 @@ public class ImageMessageService {
         return MessageUtil.newsMessageToXml(nmessage);
 
     }
+	/**
+	 *   创建饼图消息
+	 */
+	public  String  createPiePlot(Student student, Message message)  {
 
+		NewsMessage nmessage=new NewsMessage();
+		nmessage.setToUserName(message.getFromUserName());
+		nmessage.setFromUserName(message.getToUserName());
+		nmessage.setCreateTime(new Date().getTime());
+		nmessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
+		nmessage.setFuncFlag(0);
+		List<MyArticle> articleList = new ArrayList<>();
+		MyArticle article=new MyArticle();
+		article.setTitle("签到情况");
+		article.setDescription(student.getName()+"签到情况");
+		article.setPicUrl("http://localhost:8080/aixuexiao/assets/img/bg305.jpg");
+//        article.setPicUrl("http://5afbaf5d.ngrok.io/aixuexiao/assets/img/bg1.jpg");
+		article.setUrl("http://localhost:8080/aixuexiao/changda/signEcharts/?studentid=" + student.getId());
+//        article.setUrl("http://5afbaf5d.ngrok.io/aixuexiao/changda/echats");
+		articleList.add(article);
+		nmessage.setArticleCount(articleList.size());
+		nmessage.setArticles(articleList);
+		return MessageUtil.newsMessageToXml(nmessage);
+
+	}
 
 //	public  String getImgResponse(Student student, Message message){
 //		String back="";

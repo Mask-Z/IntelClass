@@ -25,4 +25,7 @@ public class SigninDetailDao extends BaseDao{
 		map.put("key", key);
 		return this.readSqlSession.selectList("com.aixuexiao.dao.SigninDetailDao.selectSigninDetail",map);
 	}
+	public int getItemsByStudentId(int studentid){
+		return this.readSqlSession.selectOne("com.aixuexiao.dao.SigninDetailDao.getItemsByStudentId",studentid);
+	}
 }

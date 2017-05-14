@@ -21,6 +21,11 @@
         where id = #{id}
     </select>
 
+    <select id="getItems"    resultType="int"  >
+        select count(*)
+        from signin_num
+    </select>
+
     <resultMap type="SigninNum" id="SigninNumMap">
         <id property="id" column="id" />
         <result property="signnum" column="signnum"/>

@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import com.aixuexiao.model.*;
+import com.aixuexiao.service.SigninDetailService;
+import com.aixuexiao.service.SigninNumService;
 import com.aixuexiao.service.WeixinService;
 import com.aixuexiao.util.MyLogger;
 import com.aixuexiao.util.WeixinUtil;
@@ -32,6 +34,11 @@ public class StudentController {
 	@Resource(name="weixinService")
 	private WeixinService weixinService;
 
+	@Resource(name="signinDetailService")
+	private SigninDetailService signinDetailService;
+
+	@Resource(name="signinNumService")
+	private SigninNumService signinNumService;
 	/**
 	 * 生成图文消息
 	 * @param student
@@ -51,7 +58,7 @@ public class StudentController {
 		Article article = new Article();
 		article.setTitle("考试成绩");
 		article.setDescription(classid + "班英语成绩");
-		article.setPicUrl("http://localhost:8080/aixuexiao/assets/img/bg1.jpg");
+		article.setPicUrl("http://localhost:8080/aixuexiao/assets/img/bg301.jpg");
 		article.setUrl("http://localhost:8080/aixuexiao/changda/echats?classid=" + classid);
 		articleList.add(article);
 		reply.setArticleCount(articleList.size());
@@ -173,5 +180,15 @@ public class StudentController {
 		mv.setViewName("echats");
 		return mv;
 	}
-	
+
+	@RequestMapping(value = "/changda/signEcharts",method = RequestMethod.GET)
+	public ModelAndView signEcharts(int studentid){
+		ModelAndView mv=new ModelAndView();
+		int succeed=signinDetailService.getItemsByStudentId(studentid);
+		int all=signinNumService.getItems();
+		mv.setViewName("signEcharts");
+		mv.addObject("succeed",succeed);
+		mv.addObject("failure",all-succeed);
+		return mv;
+	}
 }

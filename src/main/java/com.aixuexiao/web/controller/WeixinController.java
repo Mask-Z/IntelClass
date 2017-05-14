@@ -92,7 +92,7 @@ public class WeixinController {
 				student2.setFromusername(fromUserName);
 				student2.setFlag(1);
 				studentDao.updateStudent(student2);
-				back = "微信绑定成功!";
+				back = "恭喜!微信绑定成功!\ue312\ue312\ue312\n"+Reply.COMMON_CONTENT;
 //                return "微信绑定成功!";
 			}
 		} catch (NumberFormatException e) {
@@ -147,7 +147,7 @@ public class WeixinController {
 			student2.setFromusername(fromUserName);
 			student2.setFlag(1);
 			studentDao.updateStudent(student2);
-			return "微信绑定成功!";
+			return "恭喜!微信绑定成功!\ue312\ue312\ue312\n"+Reply.COMMON_CONTENT;
 		}
 
 	}
@@ -188,29 +188,12 @@ public class WeixinController {
 
 					}
 					return getTextResponse(info, message);
-//                    if ("签到".equals(cs[1])){
-//                        String info=getSignInfo(cs[0]);
-//                        return ;
-//                    }
-//                    if ("绑定".equals(cs[1])){
-//
-//                    }
-//                    try {
-//                        int studentid = Integer.valueOf(cs[0]);
-//                        String process = cs[1];
-//                        //  2
-//                        return getTextResponse(connId(fromUserName, studentid, process), message);
-//                    } catch (NumberFormatException e) {
-//                        // 1
-//                        replyContent = Reply.ERROR_CONTENT;
-//                        return getTextResponse(replyContent, message);
-//                    }
 				}
-//**/
+
 
 				Student student = isConnected2(fromUserName);
 				if (null == student) {
-					replyContent = "你还未绑定学号,请回复以下格式消息绑定学号 : 学号_绑定(如:3011_绑定)\n\n注意 : 一个微信号只能绑定一个学号! 且不可解绑!!!";
+					replyContent = "  你还未绑定学号,请回复以下格式消息绑定学号 : 学号_绑定(如:3011_绑定)\n\ue528注意 : 一个微信号只能绑定一个学号! 且不可解绑!!!";
 					// 3
 					return getTextResponse(replyContent, message);
 				}
@@ -218,7 +201,10 @@ public class WeixinController {
 				if ("图文".equals(message.getContent())) {
 //                    return new StudentController().getImgResponse(student,message);
 					return new ImageMessageService().createPic(student, message);
-				} else {
+				} if("签到".equals(message.getContent())){
+					return new ImageMessageService().createPiePlot(student,message);
+				}
+				else {
 					return getTextResponse(getProcess(student.getId(), message.getContent()), message);
 //                    return  getTextResponse(replyContent,message);
 				}
@@ -256,7 +242,7 @@ public class WeixinController {
 		} else if ("班级成绩".equals(process)) {
 			replyContent = weixinService.test(studentid);
 		} else {
-			replyContent = "请输入正确的指令\n" + Reply.WELCOME_CONTENT;
+			replyContent = "请输入正确的指令:\n" + Reply.COMMON_CONTENT;
 		}
 
 		return replyContent;

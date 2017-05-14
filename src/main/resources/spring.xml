@@ -29,7 +29,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     <bean id="readDataSource"  class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
         <property name="jdbcUrl">
-            <value><![CDATA[jdbc:mysql://${db.read.host}:${db.read.port}/${db.read.database}?useUnicode=true&characterEncoding=gbk&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true]]></value>
+            <value><![CDATA[jdbc:mysql://${db.read.host}:${db.read.port}/${db.read.database}?autoReconnect=true&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true]]></value>
         </property>
         <property name="user"               value="${db.read.userName}" />
         <property name="password"           value="${db.read.password}" />
@@ -59,7 +59,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     <bean id="writeDataSource"  class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
         <property name="jdbcUrl">
-            <value><![CDATA[jdbc:mysql://${db.write.host}:${db.write.port}/${db.write.database}?useUnicode=true&characterEncoding=gbk&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true]]></value>
+            <value><![CDATA[jdbc:mysql://${db.write.host}:${db.write.port}/${db.write.database}?autoReconnect=true&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true]]></value>
         </property>
         <property name="user"               value="${db.write.userName}" />
         <property name="password"           value="${db.write.password}" />

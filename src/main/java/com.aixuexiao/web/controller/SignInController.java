@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -51,13 +52,6 @@ public class SignInController {
 		if (null != pagenum) {
 			num = Integer.parseInt(pagenum);
 		}
-//		int signid = 0;
-//		if (null != signinNum&&0!=signinNum.getId()) {
-//			signid = signinNum.getId();
-//		} else {
-//			signid = signinNumService.getLatestSigninNum().getId();
-//		}
-
 		String key;
 		if (null != signnumkey&& !Objects.equals("", signnumkey)) {
 			key=signnumkey;
@@ -70,15 +64,19 @@ public class SignInController {
 //		List<SigninDetail> list = studentService.listStudent((num-1)*pagesize, pagesize,student);
 		List<SigninDetail> signinDetailList = signinDetailService.listSigninDetail((num - 1) * pagesize, pagesize, key);
 		//根据签到信息获取学生姓名,班级,签到码
-		Map<String, Object> map = new HashMap<>();
+
 		List<Map<String, Object>> list = new ArrayList<>();
 		if (null != signinDetailList && signinDetailList.size() > 0) {
 			for (SigninDetail signinDetail : signinDetailList) {
-//				MyLogger.info("标记: "+signinDetail.getFlag());
-				String studentname = studentService.findStudentById(signinDetail.getStudentid()).getName();
+				Map<String, Object> map = new HashMap<>();
+//				MyLogger.info("标记: "+signinDetail.getStudentid());
+				Student student=studentService.findStudentById(signinDetail.getStudentid());
+				String studentname = student.getName();
+				int studentid=student.getId();
 				String classname = classesService.findClassesById(signinDetail.getClassid()).getName();
 				String signnum = signinNumService.findSigninNumById(signinDetail.getSignid()).getSignnum();
 				map.put("signindetail", signinDetail);
+				map.put("studentid", studentid);
 				map.put("studentname", studentname);
 				map.put("classname", classname);
 				map.put("signnum", signnum);
@@ -104,17 +102,6 @@ public class SignInController {
 			mv.addObject("signnum", signnum);
 		mv.setViewName("signIn");
 		mv.addObject("sidebar", "signIn");
-		int num = 1;
-		if (null != pagenum) {
-			num = Integer.parseInt(pagenum);
-		}
-		List<Student> list = studentService.listStudent((num - 1) * pagesize, pagesize, student);
-		List<Classes> clslist = studentService.findAllClasses();
-		mv.addObject("studentList", list);
-		mv.addObject("clsList", clslist);
-		mv.addObject("length", list.size());
-		mv.addObject("pagenum", num);
-		mv.addObject("student", student);
 		return mv;
 	}
 
@@ -138,10 +125,18 @@ public class SignInController {
 		return mv;
 	}
 
-//	public static void main(String[] args) {
-//		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		System.out.println(simpleDateFormat.format(new Date(1494614222373l)));
-//		System.out.println(simpleDateFormat.format(new Date(1494614282434l)));
-//	}
+	@ResponseBody
+	@RequestMapping(value = "/manager/getOnlySignInNum", method = RequestMethod.GET)
+	public String  getSignInNum() {
+
+		String result = GetChars.getRandomString(6);
+		SigninNum signinNum = new SigninNum();
+		signinNum.setSignnum(result);
+//		MyLogger.info("存放前: "+new Date().getTime());
+		signinNum.setSigntime(new Date(new Date().getTime() + 60000));
+//		MyLogger.info("存放后: "+signinNum.getSigntime().getTime());
+		signinNumService.saveSigninNum(signinNum);
+		return result;
+	}
 
 }
