@@ -25,7 +25,6 @@ public class ImageMessageService {
      *   创建图文消息
      */
     public  String  createPic(Student student, Message message)  {
-
         NewsMessage nmessage=new NewsMessage();
 		nmessage.setToUserName(message.getFromUserName());
 		nmessage.setFromUserName(message.getToUserName());
@@ -36,15 +35,14 @@ public class ImageMessageService {
         MyArticle article=new MyArticle();
         article.setTitle("考试成绩");
         article.setDescription(student.getClassid()+"班级成绩");
-        article.setPicUrl("http://localhost:8080/aixuexiao/assets/img/bg"+student.getClassid()+".jpg");
-//        article.setPicUrl("http://5afbaf5d.ngrok.io/aixuexiao/assets/img/bg1.jpg");
-        article.setUrl("http://localhost:8080/aixuexiao/changda/echats/?classid=" + student.getClassid());
-//        article.setUrl("http://5afbaf5d.ngrok.io/aixuexiao/changda/echats");
+        article.setPicUrl("http://21cf9753.ngrok.io/intellijclass/assets/img/bg"+student.getClassid()+".jpg");
+//        article.setPicUrl("http://115.159.24.148/intellijclass/assets/img/bg"+student.getClassid()+".jpg");
+//        article.setUrl("http://115.159.24.148/intellijclass/changda/echats/?classid=" + student.getClassid());
+        article.setUrl("http://21cf9753.ngrok.io/intellijclass/changda/echats/?classid=" + student.getClassid());
         articleList.add(article);
 		nmessage.setArticleCount(articleList.size());
 		nmessage.setArticles(articleList);
         return MessageUtil.newsMessageToXml(nmessage);
-
     }
 	/**
 	 *   创建饼图消息
@@ -61,10 +59,11 @@ public class ImageMessageService {
 		MyArticle article=new MyArticle();
 		article.setTitle("签到情况");
 		article.setDescription(student.getName()+"签到情况");
-		article.setPicUrl("http://localhost:8080/aixuexiao/assets/img/bg305.jpg");
-//        article.setPicUrl("http://5afbaf5d.ngrok.io/aixuexiao/assets/img/bg1.jpg");
-		article.setUrl("http://localhost:8080/aixuexiao/changda/signEcharts/?studentid=" + student.getId());
-//        article.setUrl("http://5afbaf5d.ngrok.io/aixuexiao/changda/echats");
+//		article.setPicUrl("http://115.159.24.148/intellijclass/assets/img/bg305.jpg");
+		article.setPicUrl("http://21cf9753.ngrok.io/intellijclass/assets/img/bg305.jpg");
+//		article.setUrl("http://115.159.24.148/intellijclass/changda/signEcharts/?studentid=" + student.getId());
+		article.setUrl("http://21cf9753.ngrok.io/intellijclass/changda/signEcharts/?studentid=" + student.getId());
+
 		articleList.add(article);
 		nmessage.setArticleCount(articleList.size());
 		nmessage.setArticles(articleList);

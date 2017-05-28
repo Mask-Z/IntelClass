@@ -10,20 +10,22 @@
 <html>
 <head>
     <title>成绩柱状图</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
     <script src="<%=request.getContextPath()%>/assets/js/echarts.common.min.js"></script>
 </head>
 <style>
     body{ text-align:center}
     div{
         margin:0 auto;
-        top: 10%;
+        /*top: 10%;*/
     }
 </style>
 <body>
 
 
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<div id="main" style="width: 600px;height:400px;"></div>
+<div id="main" style="width: 100%;height:100%;"></div>
+<%--<div id="main" style="width: 600px;height:400px;"></div>--%>
 <script>
     var myChart = echarts.init(document.getElementById('main'));
     // 显示标题，图例和空的坐标轴

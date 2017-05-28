@@ -94,11 +94,11 @@
 														</fieldset>
 													</form>
 													<div class="social-or-login center">
-													<span class="bigger-110">常州大学(aixuexiao)</span>
+													<span class="bigger-110">常州大学(IntelClass)</span>
 													</div>
 													
 													<div class="social-login center">
-														<img alt="常州大学" src="<%=request.getContextPath()%>/assets/images/getqrcode.jpeg" style="height: 100px;width: 100px;" >
+														<img alt="常州大学" src="<%=request.getContextPath()%>/assets/images/qrcode.jpg" style="height: 100px;width: 100px;" >
 													</div>
 													
 												</div><!--/widget-main-->

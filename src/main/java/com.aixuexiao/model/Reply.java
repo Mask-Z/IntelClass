@@ -35,9 +35,9 @@ public class Reply implements Serializable {
 					"\ue21f留言历史: 老师最近十次留言记录\n" +
 					"\ue220动态: 班级动态\n" +
 					"\ue221动态历史: 班级最近十条动态\n" +
-					"\ue21a签到码_签到: 课堂签到\n" +
-					"\ue219图文: 上次班级考试成绩排名\n" +
-					"\ue21b签到: 个人签到信息图";
+					"\ue222签到码_签到: 课堂签到\n" +
+					"\ue223图文: 上次班级考试成绩排名\n" +
+					"\ue224签到: 个人签到信息图";
 
 	public static final String WELCOME_CONTENT = "欢迎订阅常州学校智能课堂，你可以回复指定内容来获取信息:\n" +
 			"\ue21c考试: 最近一次考试情况\n" +
@@ -46,9 +46,9 @@ public class Reply implements Serializable {
 			"\ue21f留言历史: 老师最近十次留言记录\n" +
 			"\ue220动态: 班级动态\n" +
 			"\ue221动态历史: 班级最近十条动态\n" +
-			"\ue21a签到码_签到: 课堂签到\n" +
-			"\ue219图文: 上次班级考试成绩排名\n" +
-			"\ue21b签到: 个人签到信息图";
+			"\ue222签到码_签到: 课堂签到\n" +
+			"\ue223图文: 上次班级考试成绩排名\n" +
+			"\ue224签到: 个人签到信息图";
 
 	public static final String COMMON_CONTENT = "请您按照以下指令获取信息: \n" +
 			"\ue21c考试: 最近一次考试情况\n" +
@@ -57,9 +57,9 @@ public class Reply implements Serializable {
 			"\ue21f留言历史: 老师最近十次留言记录\n" +
 			"\ue220动态: 班级动态\n" +
 			"\ue221动态历史: 班级最近十条动态\n" +
-			"\ue21a签到码_签到: 课堂签到\n" +
-			"\ue219图文: 上次班级考试成绩排名\n" +
-			"\ue21b签到: 个人签到信息图";
+			"\ue222签到码_签到: 课堂签到\n" +
+			"\ue223图文: 上次班级考试成绩排名\n" +
+			"\ue224签到: 个人签到信息图";
 
 	@XStreamOmitField
 	private int id;//数据库存储id
