@@ -5,7 +5,7 @@
 			<a href="<%=request.getContextPath()%>/" class="brand">
 				<small>
 					<i class="icon-briefcase"></i>
-					&nbsp;常大IntelClass
+					&nbsp;常大IntelliJClass
 				</small>
 			</a><!--/.brand-->
 		</div><!--/.container-fluid-->

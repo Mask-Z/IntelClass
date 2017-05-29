@@ -21,8 +21,8 @@ public class SigninDetailService {
 		signinDetailDao.saveSigninDetail(signinDetail);
 	}
 
-	public List<SigninDetail> listSigninDetail(int start, int size, String key){
-		return signinDetailDao.findSigninDetail(start,size,key);
+	public List<SigninDetail> listSigninDetail(int start, int size, String key,String classid){
+		return signinDetailDao.findSigninDetail(start,size,key,classid);
 	}
 	public int getItemsByStudentId(int studentid){
 		return signinDetailDao.getItemsByStudentId(studentid);

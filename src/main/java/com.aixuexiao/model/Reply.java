@@ -36,9 +36,12 @@ public class Reply implements Serializable {
 					"\ue220动态: 班级动态\n" +
 					"\ue221动态历史: 班级最近十条动态\n" +
 					"\ue222签到码_签到: 课堂签到\n" +
-					"\ue223图文: 上次班级考试成绩排名\n" +
-					"\ue224签到: 个人签到信息图";
+					"\ue223班级成绩: 上次班级考试成绩排名\n" +
+					"\ue224签到情况: 个人签到信息图"+
+			        "\n\ue225获取题目：获取最新的一道题目";
 
+	public static final String WELCOME_BIND = "欢迎订阅常州学校智能课堂。这是你的首次关注,\ue056请你首先绑定自己的学号,"+
+			"回复以下格式消息绑定学号 : 学号_绑定(如:3011_绑定)\n\ue528注意 : 一个微信号只能绑定一个学号! 且不可解绑!!!";
 	public static final String WELCOME_CONTENT = "欢迎订阅常州学校智能课堂，你可以回复指定内容来获取信息:\n" +
 			"\ue21c考试: 最近一次考试情况\n" +
 			"\ue21d考试历史: 最近十次考试信息\n" +
@@ -47,8 +50,9 @@ public class Reply implements Serializable {
 			"\ue220动态: 班级动态\n" +
 			"\ue221动态历史: 班级最近十条动态\n" +
 			"\ue222签到码_签到: 课堂签到\n" +
-			"\ue223图文: 上次班级考试成绩排名\n" +
-			"\ue224签到: 个人签到信息图";
+			"\ue223班级成绩: 上次班级考试成绩排名\n" +
+			"\ue224签到情况: 个人签到信息图"+
+			"\n\ue225获取题目：获取最新的一道题目";
 
 	public static final String COMMON_CONTENT = "请您按照以下指令获取信息: \n" +
 			"\ue21c考试: 最近一次考试情况\n" +
@@ -58,8 +62,9 @@ public class Reply implements Serializable {
 			"\ue220动态: 班级动态\n" +
 			"\ue221动态历史: 班级最近十条动态\n" +
 			"\ue222签到码_签到: 课堂签到\n" +
-			"\ue223图文: 上次班级考试成绩排名\n" +
-			"\ue224签到: 个人签到信息图";
+			"\ue223班级成绩: 上次班级考试成绩排名\n" +
+			"\ue224签到情况: 个人签到信息图"+
+			"\n\ue225获取题目：获取最新的一道题目";
 
 	@XStreamOmitField
 	private int id;//数据库存储id

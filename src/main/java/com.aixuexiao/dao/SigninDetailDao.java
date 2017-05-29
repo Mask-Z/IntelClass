@@ -18,11 +18,12 @@ public class SigninDetailDao extends BaseDao{
 		return this.writerSqlSession.insert("com.aixuexiao.dao.SigninDetailDao.saveSigninDetail", signinDetail);
 	}
 
-	public List<SigninDetail> findSigninDetail(int start, int size, String key) {
+	public List<SigninDetail> findSigninDetail(int start, int size, String key,String classid) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("start", start);
 		map.put("size", size);
 		map.put("key", key);
+		map.put("classid", classid);
 		return this.readSqlSession.selectList("com.aixuexiao.dao.SigninDetailDao.selectSigninDetail",map);
 	}
 	public int getItemsByStudentId(int studentid){

@@ -39,15 +39,24 @@
                 <div class="span12">
                     <!--PAGE CONTENT BEGINS-->
                     <%--<form class="form-inline" method="get" action="<%=request.getContextPath() %>/manager/getSignInNum">--%>
-                    <%--<form class="form-inline" >--%>
+                    <form class="form-inline" >
                     <%--<input type="hidden" name="pagenum" value="${pagenum}">--%>
-                    &nbsp;&nbsp;签到码：<input type="text" id="signInNum" class="input-medium search-query" readonly>&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;签到码：<input type="text" id="signInNum" class="input-medium search-query" value="${signnum}" readonly>&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <select name="classid" id="selectId">
+                        <option value="0">选择班级</option>
+                        <c:forEach items="${clsList}"  var="cls"  >
+                            <%--<option <c:if test="${exam.classid == cls.id}">selected="selected"</c:if> value="${cls.id}">${cls.name}</option>--%>
+                            <option  value="${cls.id}">${cls.name}</option>
+                        </c:forEach>
+                    </select>&nbsp;&nbsp;
+                    </form>
                     <button class="btn btn-purple btn-small" id="buttonsign" onclick="test()"
                             style="width: 108.25px;height: 32px">
                         生成签到码
                         <i class=" icon-refresh icon-on-right bigger-110"></i>
                     </button>
-                    <%--</form>--%>
+
 
                     <!--PAGE CONTENT ENDS-->
                 </div><!--/.span-->
@@ -57,7 +66,7 @@
 </div><!--/.main-container-->
 
 <%@include file="/WEB-INF/views/common/js.jsp" %>
-<script>
+<script type="text/javascript">
     var path = "<%=request.getContextPath() %>";
     var c = 60;
     var t;
@@ -75,11 +84,12 @@
     }
 
     function test() {
+        var classid=$('#selectId').find('option:selected').val();
         $.ajax({
             //提交数据的类型 POST GET
             type: "GET",
             //提交的网址
-            url: path + "/manager/getOnlySignInNum",
+            url: path + "/manager/getOnlySignInNum?classid="+classid,
             //提交的数据
             <%--data:{signInNum:"${signInNum}"},--%>
             //返回数据的格式

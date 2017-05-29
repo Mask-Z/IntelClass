@@ -19,7 +19,7 @@ public class SigninNumDao extends BaseDao {
 	public SigninNum findSigninNumById(int id) {
 		return this.readSqlSession.selectOne("com.aixuexiao.dao.SigninNumDao.selectSigninNumById",id);
 	}
-	public int getItems() {
-		return this.readSqlSession.selectOne("com.aixuexiao.dao.SigninNumDao.getItems");
+	public int getItems(int classid) {
+		return this.readSqlSession.selectOne("com.aixuexiao.dao.SigninNumDao.getItems",classid);
 	}
 }

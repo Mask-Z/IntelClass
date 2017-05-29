@@ -4,7 +4,8 @@
 <configuration>  
     <!-- 配置mybatis的缓存，延迟加载等等一系列属性 -->  
     <settings>
-		<!--<setting name="logImpl" value="STDOUT_LOGGING"/>-->
+		<!--在日志中输出SQL语句-->
+		<setting name="logImpl" value="STDOUT_LOGGING"/>
         <!-- 全局映射器启用缓存 -->  
         <setting name="cacheEnabled" value="true" />  
         <!-- 查询时，关闭关联对象即时加载以提高性能 -->  
@@ -36,6 +37,8 @@
    		 <typeAlias alias="ClassesNews"  type="com.aixuexiao.model.ClassesNews" />
    		 <typeAlias alias="SigninNum"  type="com.aixuexiao.model.SigninNum" />
    		 <typeAlias alias="SigninDetail"  type="com.aixuexiao.model.SigninDetail" />
+   		 <typeAlias alias="Question"  type="com.aixuexiao.model.Question" />
+   		 <typeAlias alias="Answer"  type="com.aixuexiao.model.Answer" />
 	</typeAliases>
     <mappers>
     	<mapper resource="com/aixuexiao/dao/sqlmap/ReplyMapper.xml"/>
@@ -47,5 +50,7 @@
     	<mapper resource="com/aixuexiao/dao/sqlmap/ClassesMapper.xml"/>
     	<mapper resource="com/aixuexiao/dao/sqlmap/SigninNumMapper.xml"/>
     	<mapper resource="com/aixuexiao/dao/sqlmap/SigninDetailMapper.xml"/>
+    	<mapper resource="com/aixuexiao/dao/sqlmap/QuestionMapper.xml"/>
+    	<mapper resource="com/aixuexiao/dao/sqlmap/AnswerMapper.xml"/>
     </mappers>
 </configuration>

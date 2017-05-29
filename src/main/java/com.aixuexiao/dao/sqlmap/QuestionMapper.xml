@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aixuexiao.dao.QuestionDao">
+
+	<select id="selectQuestion"  parameterType="java.util.HashMap"   resultMap="questionMap"  >
+		select id,classid,title,content,inserttime
+		from question
+		<where>
+			<if test="question.classid != 0">classid = #{question.classid}</if>
+			<if test="question.title != null and question.title != ''">and title = #{question.title}</if>
+		</where>
+		order by id
+		limit #{start},#{size}
+	</select>
+
+	<select id="findLatestQuestionByClassId" parameterType="int" resultMap="questionMap">
+		select id,classid,title,content,inserttime
+		from question WHERE classid=#{classid} ORDER BY inserttime DESC LIMIT 0,1;
+	</select>
+
+    <select id="findQuestionByQuestionId" parameterType="int" resultMap="questionMap">
+		select id,classid,title,content,inserttime
+		FROM question WHERE id=#{questionid}
+    </select>
+
+	<insert id="addQuestion" parameterType="com.aixuexiao.model.Question">
+		insert into question (classid,title,content,inserttime)
+		values(#{classid},#{title},#{content},#{inserttime})
+	</insert>
+
+	
+	 <resultMap type="Question" id="questionMap">
+	     <id property="id" column="id" />  
+	     <result property="classid" column="classid"/>
+	     <result property="title" column="title"/>
+	     <result property="content" column="content"/>
+	     <result property="inserttime" column="inserttime"/>
+	</resultMap>
+	 
+</mapper>

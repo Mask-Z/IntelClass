@@ -5,6 +5,7 @@ import com.aixuexiao.dao.StudentDao;
 import com.aixuexiao.dao.StudentMessageDao;
 import com.aixuexiao.model.*;
 import com.aixuexiao.service.*;
+import com.aixuexiao.util.MessageUtil;
 import com.aixuexiao.util.MyLogger;
 import com.aixuexiao.util.WeixinUtil;
 import org.springframework.stereotype.Controller;
@@ -44,10 +45,38 @@ public class WeixinController {
 	@Resource(name = "signinDetailService")
 	private SigninDetailService signinDetailService;
 
+	@Resource(name = "answerService")
+	private AnswerService answerService;
+
+
 	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String test(HttpServletRequest request) {
 		return weixinService.getStudentMessageHistoryByStudentId(30202);
+	}
+
+
+	/**
+	 * 保存答案信息
+	 *
+	 * @param fromUserName
+	 * @param content
+	 * @param questionid
+	 * @return
+	 */
+	private String saveAnswerInfo(String fromUserName, String content, int questionid) {
+		if (questionid==0){
+			return "作答失败！\ue401";
+		}
+		Student student = studentDao.findStudentByFromUserName(fromUserName);
+		Answer answer = new Answer();
+		answer.setStudentid(student.getId());
+		answer.setClassid(student.getClassid());
+		answer.setQuestionid(questionid);
+		answer.setContent(content);
+		answer.setInserttime(new Date());
+		answerService.saveAnswer(answer);
+		return "答题成功！\ue056";
 	}
 
 	/**
@@ -56,13 +85,13 @@ public class WeixinController {
 	 * @param signnum
 	 * @return
 	 */
-	public String getSignInfo(String fromUserName,String signnum) {
+	public String getSignInfo(String fromUserName, String signnum) {
 		SigninNum signinNum = signinNumService.getLatestSigninNum();
 		String dbnum = signinNum.getSignnum();
-		if (null != signnum && dbnum.equals(signnum) && new Date().getTime() <= signinNum.getSigntime().getTime()) {
+		Student student = studentDao.findStudentByFromUserName(fromUserName);
+		if (student.getClassid() == signinNum.getClassid() && null != signnum && dbnum.equals(signnum) && new Date().getTime() <= signinNum.getSigntime().getTime()) {
 			//把签到成功的同学保存到数据库中
-			SigninDetail signinDetail=new SigninDetail();
-			Student student = isConnected2(fromUserName);
+			SigninDetail signinDetail = new SigninDetail();
 			signinDetail.setFlag(1);
 			signinDetail.setSigntime(new Date());
 			signinDetail.setClassid(student.getClassid());
@@ -74,25 +103,30 @@ public class WeixinController {
 			return "签到失败";
 		}
 	}
+
 	public String getBindInfo(String fromUserName, String str1) {
 		String back = "";
 
-		Student student1 = isConnected2(fromUserName);
+		//查看该微信号是否已绑定学号
+		Student student1 = studentDao.findStudentByFromUserName(fromUserName);
 		try {
 			int studentid = Integer.valueOf(str1);
 			Student student2 = studentDao.findStudentById(studentid);
+			//查看该微信号是否已绑定学号
+			String formid = student2.getFromusername();
 			if (null != student1) {
 				back = "该微信已绑定学号!";
 //                return back;
-			}
-			if (null == student2) {
+			} else if (null != formid || "" != formid) {
+				back = "该学号已绑定了微信！";
+			} else if (null == student2) {
 				back = "请输入正确的学号!";
 //                return back;
 			} else {
 				student2.setFromusername(fromUserName);
 				student2.setFlag(1);
 				studentDao.updateStudent(student2);
-				back = "恭喜!微信绑定成功!\ue312\ue312\ue312\n"+Reply.COMMON_CONTENT;
+				back = "恭喜!微信绑定成功!\ue312\ue312\ue312\n" + Reply.COMMON_CONTENT;
 //                return "微信绑定成功!";
 			}
 		} catch (NumberFormatException e) {
@@ -101,58 +135,6 @@ public class WeixinController {
 		}
 		return back;
 	}
-	/**
-	 * 根据微信号判断是否关联过学号
-	 *
-	 * @param fromUserName
-	 * @param studentid
-	 * @param process
-	 * @return
-	 */
-
-	public boolean isConnected(String fromUserName, int studentid, String process) {
-		Student student = studentDao.findStudentById(studentid);
-		if (null != student.getFromusername() && student.getFromusername().equals(fromUserName)) {
-			MyLogger.info("恭喜!😄遍历到微信号: " + student.getFromusername());
-			return true;
-		}
-		if (process.equals("绑定")) {
-			student.setFromusername(fromUserName);
-			student.setFlag(1);
-			studentDao.updateStudent(student);
-		}
-		MyLogger.info("未遍历到该微信号");
-		return false;
-	}
-
-	public Student isConnected2(String fromUserName) {
-		return studentDao.findStudentByFromUserName(fromUserName);
-	}
-
-	public String connId(String fromUserName, int studentid, String process) {
-		String back = "";
-		if (!process.equals("绑定")) {
-			return "请按指示命令操作!";
-		}
-		Student student1 = isConnected2(fromUserName);
-		Student student2 = studentDao.findStudentById(studentid);
-		if (null != student1) {
-			back = "该微信已绑定学号!";
-			return back;
-		}
-		if (null == student2) {
-			back = "请输入正确的学号!";
-			return back;
-		} else {
-			student2.setFromusername(fromUserName);
-			student2.setFlag(1);
-			studentDao.updateStudent(student2);
-			return "恭喜!微信绑定成功!\ue312\ue312\ue312\n"+Reply.COMMON_CONTENT;
-		}
-
-	}
-
-
 
 	//接收微信公众号接收的消息，处理后再做相应的回复
 	@RequestMapping(value = "/weixin", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
@@ -167,44 +149,91 @@ public class WeixinController {
 			String type = message.getMsgType();
 			//获取微信用户唯一标识
 			String fromUserName = message.getFromUserName();
+			// 图片消息
+			if (type.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
+				return getTextResponse("您发送的是图片消息！\n" + Reply.COMMON_CONTENT, message);
+			}
+			// 地理位置消息
+			if (type.equals(MessageUtil.REQ_MESSAGE_TYPE_LOCATION)) {
+				return getTextResponse("您发送的是地理位置消息！\n" + Reply.COMMON_CONTENT, message);
+			}
+			// 链接消息
+			if (type.equals(MessageUtil.REQ_MESSAGE_TYPE_LINK)) {
+				return getTextResponse("您发送的是链接消息！\n" + Reply.COMMON_CONTENT, message);
 
+			}
+			// 音频消息
+			if (type.equals(MessageUtil.REQ_MESSAGE_TYPE_VOICE)) {
+				return getTextResponse("您发送的是音频消息！\n" + Reply.COMMON_CONTENT, message);
+			}
+			if (type.equals(Message.EVENT)) {
+				// 事件类型
+				String eventType = requestMap.get("Event");
+				// 订阅
+				if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
+					return getTextResponse(Reply.WELCOME_BIND, message);
+				}
+				// 取消订阅
+				if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
+					// TODO 取消订阅后用户再收不到公众号发送的消息，因此不需要回复消息，但是需要清除绑定的微信号
+					Student student = studentDao.findStudentByFromUserName(fromUserName);
+					student.setFromusername("");
+					student.setFlag(0);
+					studentDao.updateStudent(student);
+
+				}
+			}
 			if (type.equals(Message.TEXT)) {
 				String content = message.getContent();//消息内容
-				String[] cs = content.split("_");//消息内容都以下划线_分隔
+				String[] cs = content.split("_", 2);//消息内容都以下划线_分隔
+
 				//消息长度为2 时,判断是否为绑定学号
 				//            /**
 				if (cs.length == 2) {//绑定学号
 					String info = "";
-					switch (cs[1]) {
-						case "签到":
-							info = getSignInfo(fromUserName,cs[0]);
-							break;
-						case "绑定":
-							info = getBindInfo(fromUserName, cs[0]);
-							break;
-						default:
-							info = Reply.ERROR_CONTENT;
-							break;
+					if (cs[0].contains("解")) {
+						String[] strings=cs[0].split("\\.");
+						int questionid;
+						try {
+							questionid=Integer.valueOf(strings[0]);
+						}catch (Exception e){
+							questionid=0;
+						}
 
+						info = saveAnswerInfo(fromUserName, cs[1],questionid);
+					} else {
+						switch (cs[1]) {
+							case "签到":
+								info = getSignInfo(fromUserName, cs[0]);
+								break;
+							case "绑定":
+								info = getBindInfo(fromUserName, cs[0]);
+								break;
+							default:
+								info = Reply.ERROR_CONTENT;
+								break;
+
+						}
 					}
 					return getTextResponse(info, message);
+
 				}
 
 
-				Student student = isConnected2(fromUserName);
+				Student student = studentDao.findStudentByFromUserName(fromUserName);
 				if (null == student) {
 					replyContent = "  你还未绑定学号,请回复以下格式消息绑定学号 : 学号_绑定(如:3011_绑定)\n\ue528注意 : 一个微信号只能绑定一个学号! 且不可解绑!!!";
 					// 3
 					return getTextResponse(replyContent, message);
 				}
 
-				if ("图文".equals(message.getContent())) {
+				if ("8".equals(message.getContent())) {
 //                    return new StudentController().getImgResponse(student,message);
 					return new ImageMessageService().createPic(student, message);
-				} if("签到".equals(message.getContent())){
-					return new ImageMessageService().createPiePlot(student,message);
 				}
-				else {
+				if ("9".equals(message.getContent())) {
+					return new ImageMessageService().createPiePlot(student, message);
+				} else {
 					return getTextResponse(getProcess(student.getId(), message.getContent()), message);
 //                    return  getTextResponse(replyContent,message);
 				}
@@ -218,6 +247,7 @@ public class WeixinController {
 		}
 	}
 
+
 	/**
 	 * 控制逻辑重构
 	 *
@@ -227,20 +257,20 @@ public class WeixinController {
 	 */
 	public String getProcess(int studentid, String process) {
 		String replyContent = "";
-		if ("考试".equals(process)) {
+		if ("1".equals(process)) {
 			replyContent = weixinService.getSingleExamMarkStringByStudentId(studentid);
-		} else if ("考试历史".equals(process)) {
+		} else if ("2".equals(process)) {
 			replyContent = weixinService.getExamMarkHistoryStringByStudentId(studentid);
-		} else if ("留言".equals(process)) {
+		} else if ("3".equals(process)) {
 			replyContent = weixinService.getSingleStudentMessageByStudentId(studentid);
-		} else if ("留言历史".equals(process)) {
+		} else if ("4".equals(process)) {
 			replyContent = weixinService.getStudentMessageHistoryByStudentId(studentid);
-		} else if ("动态".equals(process)) {
+		} else if ("5".equals(process)) {
 			replyContent = weixinService.getSingleClassesNewsByStudentId(studentid);
-		} else if ("动态历史".equals(process)) {
+		} else if ("6".equals(process)) {
 			replyContent = weixinService.getClassesNewsHistoryByStudentId(studentid);
-		} else if ("班级成绩".equals(process)) {
-			replyContent = weixinService.test(studentid);
+		} else if ("0".equals(process)) {
+			replyContent = weixinService.getQuestions(studentid);
 		} else {
 			replyContent = "请输入正确的指令:\n" + Reply.COMMON_CONTENT;
 		}

@@ -13,7 +13,6 @@
         from signin_detail
         <where>
             <if test="key != null and key != ''">signid IN (SELECT id FROM signin_num WHERE signnum like CONCAT('%','${key}','%' ))</if>
-            <!--<if test="student.name != null and student.name != ''">and name like CONCAT('%','${student.name}','%' )</if>-->
         </where>
         order by id
         limit #{start},#{size}

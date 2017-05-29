@@ -34,8 +34,8 @@ public class SigninNumService {
 //	public SigninNum findSigninNumById(int signinnumid){
 //		return signinNumDao.findSigninNumById(signinnumid);
 //	}
-	public int getItems(){
-		return signinNumDao.getItems();
+	public int getItems(int classid){
+		return signinNumDao.getItems(classid);
 	}
 
 }

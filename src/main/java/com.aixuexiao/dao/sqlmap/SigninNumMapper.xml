@@ -4,8 +4,8 @@
 <mapper namespace="com.aixuexiao.dao.SigninNumDao">
 
     <insert id="saveSigninNum" parameterType="com.aixuexiao.model.SigninNum">
-        insert into signin_num (id,signnum,signtime )
-        values(#{id},#{signnum},#{signtime})
+        insert into signin_num (id,signnum,signtime,classid )
+        values(#{id},#{signnum},#{signtime},#{classid})
     </insert>
     <!--findLatestSigninNum-->
     <select id="findLatestSigninNum"   resultMap="SigninNumMap"  >

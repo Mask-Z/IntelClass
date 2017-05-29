@@ -35,10 +35,10 @@ public class ImageMessageService {
         MyArticle article=new MyArticle();
         article.setTitle("考试成绩");
         article.setDescription(student.getClassid()+"班级成绩");
-        article.setPicUrl("http://21cf9753.ngrok.io/intellijclass/assets/img/bg"+student.getClassid()+".jpg");
+        article.setPicUrl("http://a6a674af.ngrok.io/intellijclass/assets/img/bg"+student.getClassid()+".jpg");
 //        article.setPicUrl("http://115.159.24.148/intellijclass/assets/img/bg"+student.getClassid()+".jpg");
 //        article.setUrl("http://115.159.24.148/intellijclass/changda/echats/?classid=" + student.getClassid());
-        article.setUrl("http://21cf9753.ngrok.io/intellijclass/changda/echats/?classid=" + student.getClassid());
+        article.setUrl("http://a6a674af.ngrok.io/intellijclass/changda/echats/?classid=" + student.getClassid());
         articleList.add(article);
 		nmessage.setArticleCount(articleList.size());
 		nmessage.setArticles(articleList);
@@ -60,9 +60,9 @@ public class ImageMessageService {
 		article.setTitle("签到情况");
 		article.setDescription(student.getName()+"签到情况");
 //		article.setPicUrl("http://115.159.24.148/intellijclass/assets/img/bg305.jpg");
-		article.setPicUrl("http://21cf9753.ngrok.io/intellijclass/assets/img/bg305.jpg");
+		article.setPicUrl("http://a6a674af.ngrok.io/intellijclass/assets/img/bg305.jpg");
 //		article.setUrl("http://115.159.24.148/intellijclass/changda/signEcharts/?studentid=" + student.getId());
-		article.setUrl("http://21cf9753.ngrok.io/intellijclass/changda/signEcharts/?studentid=" + student.getId());
+		article.setUrl("http://a6a674af.ngrok.io/intellijclass/changda/signEcharts/?studentid=" + student.getId());
 
 		articleList.add(article);
 		nmessage.setArticleCount(articleList.size());

@@ -41,7 +41,12 @@
                     <form class="form-inline" method="get" action="<%=request.getContextPath() %>/manager/signInStudents">
                         <input type="hidden" name="pagenum" value="${pagenum}">
                         &nbsp;&nbsp;签到码：<input type="text" name="signnumkey" value="${signnumkey}"  class="input-medium search-query">&nbsp;&nbsp;&nbsp;&nbsp;
-
+                        <select name="classid" id="selectId">
+                            <option value="0">选择班级</option>
+                            <c:forEach items="${clsList}"  var="cls"  >
+                                <option <c:if test="${classid == cls.id}">selected="selected"</c:if> value="${cls.id}">${cls.name}</option>
+                            </c:forEach>
+                        </select>&nbsp;&nbsp;
                         <button  type="submit" class="btn btn-purple btn-small">
                             查找
                             <i class="icon-search icon-on-right bigger-110"></i>

@@ -9,6 +9,15 @@ public class SigninNum {
 	private int id;
 	private String signnum;
 	private Date signtime;
+	private int classid;
+
+	public int getClassid() {
+		return classid;
+	}
+
+	public void setClassid(int classid) {
+		this.classid = classid;
+	}
 
 	public int getId() {
 		return id;

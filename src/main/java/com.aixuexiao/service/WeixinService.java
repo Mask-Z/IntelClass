@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.aixuexiao.model.*;
 import com.aixuexiao.resopnseMessage.MyArticle;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +19,6 @@ import com.aixuexiao.dao.MessageDao;
 import com.aixuexiao.dao.ReplyDao;
 import com.aixuexiao.dao.StudentDao;
 import com.aixuexiao.dao.StudentMessageDao;
-import com.aixuexiao.model.Article;
-import com.aixuexiao.model.ClassesNews;
-import com.aixuexiao.model.Exam;
-import com.aixuexiao.model.ExamMark;
-import com.aixuexiao.model.Message;
-import com.aixuexiao.model.Reply;
-import com.aixuexiao.model.Student;
-import com.aixuexiao.model.StudentMessage;
 
 @Service("weixinService")
 public class WeixinService {
@@ -54,7 +47,23 @@ public class WeixinService {
 //	}
     @Resource(name = "classesService")
     private ClassesService classesService;
+    @Resource(name = "studentService")
+    private StudentService studentService;
+    @Resource(name = "questionService")
+    private QuestionService questionService;
 
+    public String getQuestions(int studentid) {
+        Student student=studentService.findStudentById(studentid);
+        Question question=questionService.findLatestQuestionByClassId(student.getClassid());
+        StringBuilder sb = new StringBuilder();
+        if (null != question) {
+            sb.append("格式答题（题号.解_答案)\n").append("本次题目如下\ue301\n");
+            sb.append(question.getTitle()).append(": \n").append(question.getContent()).append("\n");
+        }else {
+            sb.append("暂时没有题目！");
+        }
+        return sb.toString();
+    }
     /**
      * 班级考试成绩排名并展现
      *

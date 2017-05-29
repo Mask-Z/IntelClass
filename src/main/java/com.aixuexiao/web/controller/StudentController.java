@@ -184,8 +184,9 @@ public class StudentController {
 	@RequestMapping(value = "/changda/signEcharts",method = RequestMethod.GET)
 	public ModelAndView signEcharts(int studentid){
 		ModelAndView mv=new ModelAndView();
+		Student student=studentService.findStudentById(studentid);
 		int succeed=signinDetailService.getItemsByStudentId(studentid);
-		int all=signinNumService.getItems();
+		int all=signinNumService.getItems(student.getClassid());
 		mv.setViewName("signEcharts");
 		mv.addObject("succeed",succeed);
 		mv.addObject("failure",all-succeed);

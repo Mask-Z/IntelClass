@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aixuexiao.dao.AnswerDao">
+	
+	<insert id="addAnswer" parameterType="com.aixuexiao.model.Answer">
+		insert into answer (classid,studentid,questionid,content,inserttime)
+		 values(#{classid},#{studentid},#{questionid},#{content},#{inserttime})
+	</insert>
+	<select id="findAnswerByQuestionId" parameterType="int" resultMap="answerMap">
+		SELECT id,classid,studentid,questionid,content,inserttime
+		FROM answer WHERE questionid = #{questionid}
+	</select>
+	 <resultMap type="Answer" id="answerMap">
+	     <id property="id" column="id" />  
+	     <result property="classid" column="classid"/>
+	     <result property="studentid" column="studentid"/>
+	     <result property="questionid" column="questionid"/>
+	     <result property="content" column="content"/>
+	     <result property="inserttime" column="inserttime"/>
+	</resultMap>
+	 
+</mapper>
