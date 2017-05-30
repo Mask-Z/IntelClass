@@ -38,4 +38,7 @@ public class SigninNumService {
 		return signinNumDao.getItems(classid);
 	}
 
+	public int getLatestSigninNumByClassId(String classid) {
+		return signinNumDao.getLatestSigninNumByClassId(classid);
+	}
 }

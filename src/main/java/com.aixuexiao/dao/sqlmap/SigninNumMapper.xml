@@ -21,11 +21,13 @@
         where id = #{id}
     </select>
 
-    <select id="getItems"    resultType="int"  >
+    <select id="getItems"  parameterType="int"   resultType="int"  >
         select count(*)
-        from signin_num
+        from signin_num where classid=#{classid}
     </select>
-
+<select id="getLatestSigninNumByClassId" parameterType="String" resultType="int">
+    SELECT id FROM signin_num WHERE classid=#{classid} ORDER BY id DESC LIMIT 0,1
+</select>
     <resultMap type="SigninNum" id="SigninNumMap">
         <id property="id" column="id" />
         <result property="signnum" column="signnum"/>

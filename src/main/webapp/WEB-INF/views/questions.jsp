@@ -23,7 +23,7 @@
             <div class="page-header position-relative">
                 <h1>
                     <small>
-                        <i class="icon-user"></i>
+                        <i class="icon-info-sign"></i>
                         问题详情
                     </small>
                 </h1>
@@ -32,7 +32,7 @@
                 <div class="span12">
                     <!--PAGE CONTENT BEGINS-->
                     <form class="form-inline" method="get" action="<%=request.getContextPath() %>/manager/questions">
-                        <input type="hidden" name="pagenum" value="${pagenum}">
+                        <%--<input type="hidden" name="pagenum" value="${pagenum}">--%>
                         &nbsp;&nbsp;题目标题：<input type="text" name="title" value="${question.title}"  class="input-medium search-query">&nbsp;&nbsp;&nbsp;&nbsp;
                         <select name="classid">
                             <option value="0">选择班级</option>
@@ -75,9 +75,9 @@
                     </table>
 
                     <div class="dataTables_paginate paging_bootstrap pagination">
-                        <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/students?pagenum=${pagenum-1}'" <c:if test="${pagenum <= 1}">disabled="disabled"</c:if>    >&laquo;</button>
+                        <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/students?pagenum=${pagenum-1}&classid=${classid}'" <c:if test="${pagenum <= 1}">disabled="disabled"</c:if>    >&laquo;</button>
                         <button class="btn btn-success btn-mini" disabled="disabled">第 ${pagenum} 页</button>
-                        <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/students?pagenum=${pagenum+1}'" <c:if test="${length < 10}">disabled="disabled"</c:if> >&raquo;</button>
+                        <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/students?pagenum=${pagenum+1}&classid=${classid}'" <c:if test="${length < 10}">disabled="disabled"</c:if> >&raquo;</button>
                     </div>
 
                     <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -87,7 +87,7 @@
                         </div>
                         <form action="addQuestion" id="addQuestion" method="post"  class="form-inline">
                             <div class="modal-body">
-                             <label class="control-label"   >班级:&nbsp;&nbsp;</label>
+                             <label class="control-label"   >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;班级:&nbsp;&nbsp;</label>
                                 <select name="classid">
                                     <c:forEach items="${clsList}"  var="cls"  >
                                         <option   value="${cls.id}">${cls.name}</option>

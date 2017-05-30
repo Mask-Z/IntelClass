@@ -76,7 +76,10 @@ public class StudentController {
 
 
 	@RequestMapping(value="/manager/students",method=RequestMethod.GET)
-	public ModelAndView listStudent(String pagenum,Student student){
+	public ModelAndView listStudent(String pagenum,Student student,String classid){
+		MyLogger.info(classid);
+		if (null==classid)
+			classid="0";
 		ModelAndView mv=new ModelAndView();
 		mv.setViewName("students");
 		mv.addObject("sidebar","students");
@@ -91,6 +94,7 @@ public class StudentController {
 		mv.addObject("length", list.size());
 		mv.addObject("pagenum", num);
 		mv.addObject("student", student);
+		mv.addObject("classid", Integer.parseInt(classid));
 		return mv;
 	}
 

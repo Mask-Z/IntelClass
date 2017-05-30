@@ -22,4 +22,8 @@ public class SigninNumDao extends BaseDao {
 	public int getItems(int classid) {
 		return this.readSqlSession.selectOne("com.aixuexiao.dao.SigninNumDao.getItems",classid);
 	}
+
+	public int getLatestSigninNumByClassId(String classid) {
+		return this.readSqlSession.selectOne("com.aixuexiao.dao.SigninNumDao.getLatestSigninNumByClassId",classid);
+	}
 }

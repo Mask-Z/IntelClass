@@ -34,7 +34,7 @@ public class QuestionController {
 	private StudentService studentService;
 
 	@RequestMapping(value="/manager/questions",method= RequestMethod.GET)
-	public ModelAndView listQuestions(String pagenum, Question question){
+	public ModelAndView listQuestions(String pagenum, Question question,String classid){
 		ModelAndView mv=new ModelAndView();
 		mv.setViewName("questions");
 		mv.addObject("sidebar","questions");
@@ -49,6 +49,7 @@ public class QuestionController {
 		mv.addObject("length", list.size());
 		mv.addObject("pagenum", num);
 		mv.addObject("question", question);
+		mv.addObject("classid", classid);
 		return mv;
 	}
 

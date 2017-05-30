@@ -39,7 +39,7 @@
                 <div class="span12">
                     <!--PAGE CONTENT BEGINS-->
                     <form class="form-inline" method="get" action="<%=request.getContextPath() %>/manager/signInStudents">
-                        <input type="hidden" name="pagenum" value="${pagenum}">
+                        <%--<input type="hidden" name="pagenum" value="${pagenum}">--%>
                         &nbsp;&nbsp;签到码：<input type="text" name="signnumkey" value="${signnumkey}"  class="input-medium search-query">&nbsp;&nbsp;&nbsp;&nbsp;
                         <select name="classid" id="selectId">
                             <option value="0">选择班级</option>
@@ -81,9 +81,9 @@
                     </table>
 
                     <div class="dataTables_paginate paging_bootstrap pagination">
-                        <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/signInStudents?pagenum=${pagenum-1}'" <c:if test="${pagenum <= 1}">disabled="disabled"</c:if>    >&laquo;</button>
+                        <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/signInStudents?pagenum=${pagenum-1}&classid=${classid}'" <c:if test="${pagenum <= 1}">disabled="disabled"</c:if>    >&laquo;</button>
                         <button class="btn btn-success btn-mini" disabled="disabled">第 ${pagenum} 页</button>
-                        <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/signInStudents?pagenum=${pagenum+1}'" <c:if test="${length < 8}">disabled="disabled"</c:if> >&raquo;</button>
+                        <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/signInStudents?pagenum=${pagenum+1}&classid=${classid}'" <c:if test="${length < 8}">disabled="disabled"</c:if> >&raquo;</button>
                     </div>
 
                     <!--PAGE CONTENT ENDS-->

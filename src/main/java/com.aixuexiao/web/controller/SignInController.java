@@ -36,15 +36,15 @@ public class SignInController {
 	@Resource(name = "classesService")
 	private ClassesService classesService;
 
-	@Resource(name="examService")
+	@Resource(name = "examService")
 	private ExamService examService;
 
 	@RequestMapping(value = "/manager/signInStudents", method = RequestMethod.GET)
-	public ModelAndView getsignInStudents(String pagenum, String  signnumkey, String classid) {
+	public ModelAndView getsignInStudents(String pagenum, String signnumkey, String classid) {
 
-		MyLogger.info("classid: "+classid);
-		if (null==classid)
-			classid="0";
+		MyLogger.info("classid: " + classid);
+		if (null == classid)
+			classid = "0";
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("signInStudents");
 		mv.addObject("sidebar", "signInStudents");
@@ -55,18 +55,21 @@ public class SignInController {
 		}
 		//搜索的签到码
 		String key;
-		if (null != signnumkey&& !Objects.equals("", signnumkey)) {
-			key=signnumkey;
-		} else if("0".equals(classid)){
-			key=signinNumService.getLatestSigninNum().getSignnum();
-		}else {
-			key="";
+		if (null != signnumkey && !Objects.equals("", signnumkey)) {
+			key = signnumkey;
+		} else if ("0".equals(classid)) {
+			key = signinNumService.getLatestSigninNum().getSignnum();
+		} else {
+			key = "";
+		}
+		int newsSignNum=0;
+		if (!classid.equals("0")){
+			newsSignNum=signinNumService.getLatestSigninNumByClassId(classid);
 		}
 
 
-
 //		List<SigninDetail> list = studentService.listStudent((num-1)*pagesize, pagesize,student);
-		List<SigninDetail> signinDetailList = signinDetailService.listSigninDetail((num - 1) * pagesize, pagesize, key,classid);
+		List<SigninDetail> signinDetailList = signinDetailService.listSigninDetail((num - 1) * pagesize, pagesize, key, String.valueOf(newsSignNum));
 		//根据签到信息获取学生姓名,班级,签到码
 
 		List<Map<String, Object>> list = new ArrayList<>();
@@ -74,9 +77,9 @@ public class SignInController {
 			for (SigninDetail signinDetail : signinDetailList) {
 				Map<String, Object> map = new HashMap<>();
 //				MyLogger.info("标记: "+signinDetail.getStudentid());
-				Student student=studentService.findStudentById(signinDetail.getStudentid());
+				Student student = studentService.findStudentById(signinDetail.getStudentid());
 				String studentname = student.getName();
-				int studentid=student.getId();
+				int studentid = student.getId();
 				String classname = classesService.findClassesById(signinDetail.getClassid()).getName();
 				String signnum = signinNumService.findSigninNumById(signinDetail.getSignid()).getSignnum();
 				map.put("signindetail", signinDetail);
@@ -97,6 +100,7 @@ public class SignInController {
 		mv.addObject("length", list.size());
 		mv.addObject("pagenum", num);
 		mv.addObject("signnumkey", signnumkey);
+		mv.addObject("classid", classid);
 		return mv;
 
 
@@ -106,7 +110,7 @@ public class SignInController {
 	public ModelAndView listStudent(@ModelAttribute("signnum") String signnum, String pagenum, Student student) {
 		ModelAndView mv = new ModelAndView();
 
-		if (null != signnum && !Objects.equals("", signnum)){
+		if (null != signnum && !Objects.equals("", signnum)) {
 			MyLogger.info(signnum);
 			mv.addObject("signnum", signnum);
 		}
@@ -157,8 +161,8 @@ public class SignInController {
 
 	@ResponseBody
 	@RequestMapping(value = "/manager/getOnlySignInNum", method = RequestMethod.GET)
-	public String  getSignInNum2(HttpServletRequest request) {
-        String classid=request.getParameter("classid");
+	public String getSignInNum2(HttpServletRequest request) {
+		String classid = request.getParameter("classid");
 
 		String result = GetChars.getRandomString(6);
 		SigninNum signinNum = new SigninNum();

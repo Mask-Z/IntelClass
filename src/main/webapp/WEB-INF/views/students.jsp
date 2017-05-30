@@ -31,12 +31,13 @@
 						<div class="span12">
 							<!--PAGE CONTENT BEGINS-->
 							<form class="form-inline" method="get" action="<%=request.getContextPath() %>/manager/students">
-								<input type="hidden" name="pagenum" value="${pagenum}">
+								<%--<input type="hidden" name="pagenum" value="${pagenum}">--%>
 								&nbsp;&nbsp;姓名：<input type="text" name="name" value="${student.name}"  class="input-medium search-query">&nbsp;&nbsp;&nbsp;&nbsp;
 								<select name="classid">
 									<option value="0">选择班级</option>
 									<c:forEach items="${clsList}"  var="cls"  >
-										<option <c:if test="${student.classid == cls.id}">selected="selected"</c:if> value="${cls.id}">${cls.name}</option>
+										<option <c:if test="${student.classid == cls.id||classid==cls.id}">selected="selected"</c:if> value="${cls.id}">
+												${cls.name}</option>
 									</c:forEach>
 								</select>&nbsp;&nbsp;
 								<button  type="submit" class="btn btn-purple btn-small">
@@ -71,9 +72,9 @@
 							</table>
 							
 					 		<div class="dataTables_paginate paging_bootstrap pagination">
-							  <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/students?pagenum=${pagenum-1}'" <c:if test="${pagenum <= 1}">disabled="disabled"</c:if>    >&laquo;</button>
+							  <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/students?pagenum=${pagenum-1}&classid=${classid}'" <c:if test="${pagenum <= 1}">disabled="disabled"</c:if>    >&laquo;</button>
 							  <button class="btn btn-success btn-mini" disabled="disabled">第 ${pagenum} 页</button>
-							  <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/students?pagenum=${pagenum+1}'" <c:if test="${length < 8}">disabled="disabled"</c:if> >&raquo;</button>
+							  <button class="btn btn-success btn-mini" onclick="location.href='<%=request.getContextPath() %>/manager/students?pagenum=${pagenum+1}&classid=${classid}'" <c:if test="${length < 8}">disabled="disabled"</c:if> >&raquo;</button>
 					 		</div>
 							 
 							<!--PAGE CONTENT ENDS-->

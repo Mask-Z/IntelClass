@@ -22,7 +22,7 @@
 		</li>
 		<li <c:if test="${sidebar=='questions'}">class="active"</c:if> >
 			<a href="<%=request.getContextPath()%>/manager/questions">
-				<i class="icon-user"></i>
+				<i class="icon-question-sign"></i>
 				<span class="menu-text"> 问题列表 </span>
 			</a>
 		</li>

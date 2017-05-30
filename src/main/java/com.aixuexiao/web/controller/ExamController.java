@@ -29,7 +29,7 @@ public class ExamController {
 	private ExamService examService;
 	
 	@RequestMapping(value="/manager/exams",method=RequestMethod.GET)
-	public ModelAndView listStudent(String pagenum,Exam exam){
+	public ModelAndView listStudent(String pagenum,Exam exam,String classid){
 		ModelAndView mv=new ModelAndView();
 		mv.setViewName("exams");
 		mv.addObject("sidebar","exams");
@@ -44,6 +44,7 @@ public class ExamController {
 		mv.addObject("length", list.size());
 		mv.addObject("pagenum", num);
 		mv.addObject("exam", exam);
+		mv.addObject("classid", classid);
 		return mv;
 	}
 

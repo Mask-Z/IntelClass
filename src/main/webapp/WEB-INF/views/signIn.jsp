@@ -51,7 +51,8 @@
                         </c:forEach>
                     </select>&nbsp;&nbsp;
                     </form>
-                    <button class="btn btn-purple btn-small" id="buttonsign" onclick="test()"
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;<button class="btn btn-purple btn-small" id="buttonsign" onclick="test()"
                             style="width: 108.25px;height: 32px">
                         生成签到码
                         <i class=" icon-refresh icon-on-right bigger-110"></i>
