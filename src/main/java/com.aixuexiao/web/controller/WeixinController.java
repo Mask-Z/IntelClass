@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller()
 public class WeixinController {
@@ -115,9 +116,9 @@ public class WeixinController {
 			//查看该微信号是否已绑定学号
 			String formid = student2.getFromusername();
 			if (null != student1) {
-				back = "该微信已绑定学号!";
+				back = "该微信已绑定学号!不可再绑定其它学号！";
 //                return back;
-			} else if (null != formid || "" != formid) {
+			} else if (null != formid && !Objects.equals("", formid.trim())) {
 				back = "该学号已绑定了微信！";
 			} else if (null == student2) {
 				back = "请输入正确的学号!";
@@ -177,7 +178,7 @@ public class WeixinController {
 				if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
 					// TODO 取消订阅后用户再收不到公众号发送的消息，因此不需要回复消息，但是需要清除绑定的微信号
 					Student student = studentDao.findStudentByFromUserName(fromUserName);
-					student.setFromusername("");
+					student.setFromusername(null);
 					student.setFlag(0);
 					studentDao.updateStudent(student);
 
@@ -229,10 +230,10 @@ public class WeixinController {
 
 				if ("8".equals(message.getContent())) {
 //                    return new StudentController().getImgResponse(student,message);
-					return new ImageMessageService().createPic(student, message);
+					return new ImageMessageService().createPic(student, message,request);
 				}
 				if ("9".equals(message.getContent())) {
-					return new ImageMessageService().createPiePlot(student, message);
+					return new ImageMessageService().createPiePlot(student, message,request);
 				} else {
 					return getTextResponse(getProcess(student.getId(), message.getContent()), message);
 //                    return  getTextResponse(replyContent,message);
